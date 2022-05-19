@@ -14,6 +14,6 @@ public class EmployeePayRollService {
     public static void main(String[] args) {
         ArrayList<EmployeePayRollData> employeePayRollList=new ArrayList<>();
         EmployeePayRollService employeePayRollService=new EmployeePayRollService(employeePayRollList);
-        Scanner condoleInputReader
+        Scanner condoleInputReader;
     }
 }
