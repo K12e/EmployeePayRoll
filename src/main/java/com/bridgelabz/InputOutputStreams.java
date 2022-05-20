@@ -39,6 +39,17 @@ public class InputOutputStreams {
     }
 
     private static void writingToFile() {
+        File file = new File("C:\\Users\\JJadhao\\IdeaProjects\\untitled\\EmployeePayRolll\\src\\test.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            String contentOfFile="File handling in Java is defined as reading and writing data to a file." +
+                    " The particular file class from the package called java.io allows us" +
+                    " to handle and work with different formats of files";
+            fileWriter.write(contentOfFile);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void readFile() {
