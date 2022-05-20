@@ -1,8 +1,11 @@
 package com.bridgelabz;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
+
 public class InputOutputStreams {
     public static void main(String[] args) {
         createFile();
@@ -53,9 +56,17 @@ public class InputOutputStreams {
     }
 
     private static void readFile() {
+        File file = new File("C:\\Users\\JJadhao\\IdeaProjects\\untitled\\EmployeePayRolll\\src\\test.txt");
+        try {
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNextLine()){
+                String readLine = scanner.nextLine();
+                System.out.println(readLine);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
-
-
 }
 
 
