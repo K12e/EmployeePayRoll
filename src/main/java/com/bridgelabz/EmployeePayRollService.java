@@ -7,22 +7,57 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class EmployeePayRollService {
+import static com.bridgelabz.EmployeePayRollFileIOService.PAYROLL_FILE_NAME;
 
+public class EmployeePayRollService<EmployeePayrollData> {
+    public void printdata(String file_io) {
+    }
+
+    public long countEntries(String file_io) {
+        return 0;
+    }
+
+
+    public enum IOService{CONSOLE_IO,FILE_IO,DB_IO}
     private List<EmployeePayRollData> employeePayRollList;
+    private EmployeePayRollDBService employeePayRollDBService;
+
+    public EmployeePayRollService(List<EmployeePayRollData>employeePayRollList)  {
+        this();
+        this.employeePayRollList=employeePayRollList;
+    }
 
     public EmployeePayRollService() {
+        employeePayRollDBService=EmployeePayRollDBService.getInstance();
+    }
+    //JDBC_UC2
+    public List<EmployeePayrollData>readEmployeePayRollDataDB(IOService ioService){
+        if (ioService.equals(IOService.DB_IO)){
+            this.employeePayRollList=employeePayRollDBService.readData();
+            return this.employeePayRollList;
+        }
+
+        return null;
+    }
+    public void updateEmployeeSalary(String name,double salary){
+        int result=employeePayRollDBService.updateEmployeeData(name,salary);
+       if (result==0){
+           return;
+           EmployeePayRollData employeePayRollData=this.getEmployeePayRollData(name);
+           if (employeePayRollData!=null){
+               employeePayRollData.salary=salary;
+           }
+       }
+
     }
 
-    public EmployeePayRollService(List<EmployeePayRollData> employeePayRollList) {
-    }
 
     public static void main(String[] args) {
         ArrayList<EmployeePayRollData> employeePayRollList = new ArrayList<>();
         EmployeePayRollService employeePayRollService = new EmployeePayRollService(employeePayRollList);
         Scanner consoleInputReader = new Scanner(System.in);
         employeePayRollService.readEmployeePayRollData(consoleInputReader);
-        employeePayRollService.writeEmployeePayRollData();
+        employeePayRollService.writeEmployeePayRollData("FILE_IO");
     }
 
     private void readEmployeePayRollData(Scanner consoleInputReader) {
@@ -35,26 +70,9 @@ public class EmployeePayRollService {
         employeePayRollList.add(new EmployeePayRollData(id, name, salary));
     }
 
-    void writeEmployeePayRollData() {
+    void writeEmployeePayRollData(String file_io) {
         System.out.println("\nWriting Employee Pay Roll Roster to Console\n" + employeePayRollList);
     }
 
-    public void printData(String file_io) {
-        try{
-            Files.lines(new File("payroll-file.txt").toPath());
-        }catch(IOException e){
 
-        }
-    }
-
-    public long countEntries(String file_io) {
-        long entries=0;
-        try{
-            entries= Files.lines(new File("payroll-file.txt").toPath()).count();
-        }catch(IOException e){
-        }
-        return entries;
-    }
-    }
-
-
+}

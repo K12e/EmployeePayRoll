@@ -7,12 +7,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SecureDirectoryStream;
 import java.util.stream.IntStream;
 
 public class NIOFileAPITest {
     private static String HOME = System.getProperty("user.home");
-    private static String PlayWithNIO = "PlayGround";
+    private static String Play_With_NIO = "PlayGround";
     private Assertions Assert;
 
 
@@ -22,9 +21,9 @@ public class NIOFileAPITest {
         Path homePath = Paths.get(HOME);
         Assert.assertTrue(Files.exists(homePath));
 
-        Path playPath=Paths.get(HOME+ "/"+PlayWithNIO);
+        Path playPath=Paths.get(HOME+ "/"+Play_With_NIO);
         if(Files.exists(playPath)) {
-            SecureDirectoryStream<File> FileUtils = null;
+
             FileUtils.deleteFile(playPath.toFile());
             Assert.assertTrue(Files.notExists(playPath));
 
